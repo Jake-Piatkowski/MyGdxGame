@@ -162,7 +162,7 @@ idea {
         }
     }
 }
-apply plugin: 'kotlin-android'
+
 repositories {
     mavenCentral()
 }
