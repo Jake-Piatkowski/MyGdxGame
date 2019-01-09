@@ -2,13 +2,16 @@ package com.jbpi.mylibgdxgame
 
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Rectangle
+import com.badlogic.gdx.math.Vector3
 
 class MyGdxGame : ApplicationAdapter() {
 
@@ -21,6 +24,12 @@ class MyGdxGame : ApplicationAdapter() {
 
     lateinit var camera: OrthographicCamera
     lateinit var spriteBatch: SpriteBatch
+
+    lateinit var drops: Array<Rectangle>
+
+    var lastDropTime: Long = 0
+
+    lateinit var convertedTouchPosition: Vector3
 
     override fun create() {
 
@@ -45,6 +54,7 @@ class MyGdxGame : ApplicationAdapter() {
     }
 
     override fun render() {
+
         Gdx.gl.glClearColor(0f, 0f, 0.2f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
@@ -54,10 +64,46 @@ class MyGdxGame : ApplicationAdapter() {
         spriteBatch.end()
 
         camera.update()
+
+        if (Gdx.input.isTouched) {
+
+            convertedTouchPosition.set(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0f)
+            camera.unproject(convertedTouchPosition)
+            rectangleBucket.x = convertedTouchPosition.x - 64f / 2f
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+
+            rectangleBucket.x -= 200f * Gdx.input.deltaX
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+
+            rectangleBucket.x += 200f * Gdx.input.deltaX
+        }
+
+        if (rectangleBucket.x < 0f) {
+
+            rectangleBucket.x = 0f
+        }
+
+        if (rectangleBucket.x > 800f - 64f) {
+            rectangleBucket.x = 800f - 64f
+        }
     }
-//
+
 //    override fun dispose() {
 //        batch.dispose()
 //        img.dispose()
 //    }
+
+    private fun spawnRaindrop() {
+        val rectangleRainDrop = Rectangle()
+        rectangleRainDrop.x = MathUtils.random(0f, 800f - 64f)
+        rectangleRainDrop.y = 480f
+
+        rectangleRainDrop.width = 64f
+        rectangleRainDrop.height = 64f
+
+    }
 }
