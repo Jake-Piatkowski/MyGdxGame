@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector3
+import com.badlogic.gdx.utils.TimeUtils
 
 class MyGdxGame : ApplicationAdapter() {
 
@@ -21,11 +22,11 @@ class MyGdxGame : ApplicationAdapter() {
     lateinit var musicBackground: Music
 
     lateinit var rectangleBucket: Rectangle
+    lateinit var raindrops: com.badlogic.gdx.utils.Array<Rectangle>
 
     lateinit var camera: OrthographicCamera
-    lateinit var spriteBatch: SpriteBatch
 
-    lateinit var drops: Array<Rectangle>
+    lateinit var spriteBatch: SpriteBatch
 
     var lastDropTime: Long = 0
 
@@ -51,6 +52,9 @@ class MyGdxGame : ApplicationAdapter() {
         camera.setToOrtho(false, 800f, 480f)
 
         spriteBatch = SpriteBatch()
+
+        raindrops = com.badlogic.gdx.utils.Array()
+        spawnRaindrop()
     }
 
     override fun render() {
@@ -61,9 +65,26 @@ class MyGdxGame : ApplicationAdapter() {
         spriteBatch.projectionMatrix = camera.combined
         spriteBatch.begin()
         spriteBatch.draw(textureBucket, rectangleBucket.x, rectangleBucket.y)
+        raindrops.forEach { spriteBatch.draw(textureDrop, it.x, it.y) }
         spriteBatch.end()
 
         camera.update()
+
+        if (TimeUtils.nanoTime() - lastDropTime > 1000000000) {
+
+            spawnRaindrop()
+        }
+
+//        while (raindrops.iterator().hasNext()) {
+//
+//            val raindrop = raindrops.iterator().next()
+//            raindrop.y -= 200f * Gdx.graphics.deltaTime
+//
+//            if (raindrop.y + 64f < 0) {
+//
+//                raindrops.iterator().remove()
+//            }
+//        }
 
         if (Gdx.input.isTouched) {
 
@@ -101,9 +122,11 @@ class MyGdxGame : ApplicationAdapter() {
         val rectangleRainDrop = Rectangle()
         rectangleRainDrop.x = MathUtils.random(0f, 800f - 64f)
         rectangleRainDrop.y = 480f
-
         rectangleRainDrop.width = 64f
         rectangleRainDrop.height = 64f
 
+        raindrops.add(rectangleRainDrop)
+
+        lastDropTime = TimeUtils.nanoTime()
     }
 }
