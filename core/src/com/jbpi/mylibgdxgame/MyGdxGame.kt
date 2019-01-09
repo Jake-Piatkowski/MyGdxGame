@@ -29,7 +29,7 @@ class MyGdxGame : ApplicationAdapter() {
 
     var lastDropTime: Long = 0
 
-    lateinit var convertedTouchPosition: Vector3
+    var convertedTouchPosition: Vector3 = Vector3()
 
     override fun create() {
 
