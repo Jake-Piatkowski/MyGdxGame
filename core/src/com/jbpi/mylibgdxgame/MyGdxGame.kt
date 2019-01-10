@@ -121,10 +121,13 @@ class MyGdxGame : ApplicationAdapter() {
         }
     }
 
-//    override fun dispose() {
-//        batch.dispose()
-//        img.dispose()
-//    }
+    override fun dispose() {
+        textureDrop.dispose()
+        textureBucket.dispose()
+        soundDrop.dispose()
+        musicBackground.dispose()
+        spriteBatch.dispose()
+    }
 
     private fun spawnRaindrop() {
         val rectangleRainDrop = Rectangle()
