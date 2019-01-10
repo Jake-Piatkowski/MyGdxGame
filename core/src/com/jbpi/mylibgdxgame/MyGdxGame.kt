@@ -86,6 +86,12 @@ class MyGdxGame : ApplicationAdapter() {
 
                 iterator.remove()
             }
+
+            if (raindrop.overlaps(rectangleBucket)) {
+
+                soundDrop.play()
+                iterator.remove()
+            }
         }
 
         if (Gdx.input.isTouched) {
