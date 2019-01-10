@@ -75,16 +75,18 @@ class MyGdxGame : ApplicationAdapter() {
             spawnRaindrop()
         }
 
-//        while (raindrops.iterator().hasNext()) {
-//
-//            val raindrop = raindrops.iterator().next()
-//            raindrop.y -= 200f * Gdx.graphics.deltaTime
-//
-//            if (raindrop.y + 64f < 0) {
-//
-//                raindrops.iterator().remove()
-//            }
-//        }
+        val iterator = raindrops.iterator()
+
+        while (iterator.hasNext()) {
+
+            val raindrop = iterator.next()
+            raindrop.y -= 200f * Gdx.graphics.deltaTime
+
+            if (raindrop.y + 64f < 0) {
+
+                iterator.remove()
+            }
+        }
 
         if (Gdx.input.isTouched) {
 
