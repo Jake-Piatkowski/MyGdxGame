@@ -122,6 +122,7 @@ class MyGdxGame : ApplicationAdapter() {
     }
 
     override fun dispose() {
+
         textureDrop.dispose()
         textureBucket.dispose()
         soundDrop.dispose()
@@ -130,6 +131,7 @@ class MyGdxGame : ApplicationAdapter() {
     }
 
     private fun spawnRaindrop() {
+
         val rectangleRainDrop = Rectangle()
         rectangleRainDrop.x = MathUtils.random(0f, 800f - 64f)
         rectangleRainDrop.y = 480f
