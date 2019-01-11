@@ -22,6 +22,8 @@ const val RECTANGLE_BUCKET_HEIGHT = 64f
 const val RECTANGLE_DROPLET_WIDTH = 64f
 const val RECTANGLE_DROPLET_HEIGHT = 64f
 
+const val INTERVAL_BETWEEN_DROPLETS = 1000000000
+
 class MyGdxGame : ApplicationAdapter() {
 
     lateinit var textureDrop: Texture
@@ -78,7 +80,7 @@ class MyGdxGame : ApplicationAdapter() {
 
         camera.update()
 
-        if (TimeUtils.nanoTime() - lastDropTime > 1000000000) {
+        if (TimeUtils.nanoTime() - lastDropTime > INTERVAL_BETWEEN_DROPLETS) {
 
             spawnRaindrop()
         }
