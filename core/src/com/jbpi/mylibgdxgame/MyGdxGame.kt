@@ -85,6 +85,13 @@ class MyGdxGame : ApplicationAdapter() {
             spawnRaindrop()
         }
 
+        handleDroplets()
+        handleTouchInput()
+        handleKeyboardInput()
+        restrainBucketMove()
+    }
+
+    private fun handleDroplets() {
         val iterator = raindrops.iterator()
 
         while (iterator.hasNext()) {
@@ -102,19 +109,6 @@ class MyGdxGame : ApplicationAdapter() {
                 soundDrop.play()
                 iterator.remove()
             }
-        }
-
-        handleTouchInput()
-        handleKeyboardInput()
-
-        if (rectangleBucket.x < 0f) {
-
-            rectangleBucket.x = 0f
-        }
-
-        if (rectangleBucket.x > SCREEN_WIDTH - RECTANGLE_BUCKET_WIDTH) {
-
-            rectangleBucket.x = SCREEN_WIDTH - RECTANGLE_BUCKET_WIDTH
         }
     }
 
@@ -138,6 +132,18 @@ class MyGdxGame : ApplicationAdapter() {
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 
             rectangleBucket.x += 200f * Gdx.input.deltaX
+        }
+    }
+
+    private fun restrainBucketMove() {
+        if (rectangleBucket.x < 0f) {
+
+            rectangleBucket.x = 0f
+        }
+
+        if (rectangleBucket.x > SCREEN_WIDTH - RECTANGLE_BUCKET_WIDTH) {
+
+            rectangleBucket.x = SCREEN_WIDTH - RECTANGLE_BUCKET_WIDTH
         }
     }
 
