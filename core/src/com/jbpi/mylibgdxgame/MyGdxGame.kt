@@ -14,6 +14,14 @@ import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.utils.TimeUtils
 
+const val SCREEN_WIDTH = 800f
+const val SCREEN_HEIGHT = 480f
+
+const val RECTANGLE_BUCKET_WIDTH = 64f
+const val RECTANGLE_BUCKET_HEIGHT = 64f
+const val RECTANGLE_DROPLET_WIDTH = 64f
+const val RECTANGLE_DROPLET_HEIGHT = 64f
+
 class MyGdxGame : ApplicationAdapter() {
 
     lateinit var textureDrop: Texture
@@ -43,13 +51,13 @@ class MyGdxGame : ApplicationAdapter() {
 //        musicBackground.play()
 
         rectangleBucket = Rectangle()
-        rectangleBucket.width = 64f
-        rectangleBucket.height = 64f
-        rectangleBucket.x = 800f / 2f - 64f / 2f
+        rectangleBucket.width = RECTANGLE_BUCKET_WIDTH
+        rectangleBucket.height = RECTANGLE_BUCKET_HEIGHT
+        rectangleBucket.x = SCREEN_WIDTH / 2f - RECTANGLE_BUCKET_WIDTH / 2f
         rectangleBucket.y = 20f
 
         camera = OrthographicCamera()
-        camera.setToOrtho(false, 800f, 480f)
+        camera.setToOrtho(false, SCREEN_WIDTH, SCREEN_HEIGHT)
 
         spriteBatch = SpriteBatch()
 
@@ -82,7 +90,7 @@ class MyGdxGame : ApplicationAdapter() {
             val raindrop = iterator.next()
             raindrop.y -= 200f * Gdx.graphics.deltaTime
 
-            if (raindrop.y + 64f < 0) {
+            if (raindrop.y + RECTANGLE_DROPLET_HEIGHT < 0) {
 
                 iterator.remove()
             }
@@ -98,7 +106,7 @@ class MyGdxGame : ApplicationAdapter() {
 
             convertedTouchPosition.set(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0f)
             camera.unproject(convertedTouchPosition)
-            rectangleBucket.x = convertedTouchPosition.x - 64f / 2f
+            rectangleBucket.x = convertedTouchPosition.x - RECTANGLE_BUCKET_WIDTH / 2f
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
@@ -133,10 +141,10 @@ class MyGdxGame : ApplicationAdapter() {
     private fun spawnRaindrop() {
 
         val rectangleRainDrop = Rectangle()
-        rectangleRainDrop.x = MathUtils.random(0f, 800f - 64f)
-        rectangleRainDrop.y = 480f
-        rectangleRainDrop.width = 64f
-        rectangleRainDrop.height = 64f
+        rectangleRainDrop.x = MathUtils.random(0f, SCREEN_WIDTH - RECTANGLE_DROPLET_WIDTH)
+        rectangleRainDrop.y = SCREEN_HEIGHT
+        rectangleRainDrop.width = RECTANGLE_DROPLET_WIDTH
+        rectangleRainDrop.height = RECTANGLE_DROPLET_HEIGHT
 
         raindrops.add(rectangleRainDrop)
 
