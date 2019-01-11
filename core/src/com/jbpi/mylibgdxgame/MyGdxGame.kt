@@ -102,12 +102,31 @@ class MyGdxGame : ApplicationAdapter() {
             }
         }
 
+        handleTouchInput()
+        handleKeyboardInput()
+
+        if (rectangleBucket.x < 0f) {
+
+            rectangleBucket.x = 0f
+        }
+
+        if (rectangleBucket.x > SCREEN_WIDTH - RECTANGLE_BUCKET_WIDTH) {
+
+            rectangleBucket.x = SCREEN_WIDTH - RECTANGLE_BUCKET_WIDTH
+        }
+    }
+
+    private fun handleTouchInput() {
+
         if (Gdx.input.isTouched) {
 
             convertedTouchPosition.set(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0f)
             camera.unproject(convertedTouchPosition)
             rectangleBucket.x = convertedTouchPosition.x - RECTANGLE_BUCKET_WIDTH / 2f
         }
+    }
+
+    private fun handleKeyboardInput() {
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 
@@ -117,15 +136,6 @@ class MyGdxGame : ApplicationAdapter() {
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 
             rectangleBucket.x += 200f * Gdx.input.deltaX
-        }
-
-        if (rectangleBucket.x < 0f) {
-
-            rectangleBucket.x = 0f
-        }
-
-        if (rectangleBucket.x > 800f - 64f) {
-            rectangleBucket.x = 800f - 64f
         }
     }
 
