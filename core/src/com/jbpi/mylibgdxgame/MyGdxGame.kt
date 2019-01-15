@@ -60,8 +60,6 @@ class MyGdxGame : ApplicationAdapter() {
         camera.setToOrtho(false, SCREEN_WIDTH, SCREEN_HEIGHT)
 
         spriteBatch = SpriteBatch()
-
-        spawnDroplet()
     }
 
     override fun render() {
@@ -77,11 +75,7 @@ class MyGdxGame : ApplicationAdapter() {
 
         camera.update()
 
-        if (TimeUtils.nanoTime() - lastDropletTime > INTERVAL_BETWEEN_DROPLETS) {
-
-            spawnDroplet()
-        }
-
+        spawnDroplet()
         handleDroplets()
         handleTouchInput()
         handleKeyboardInput()
@@ -156,6 +150,11 @@ class MyGdxGame : ApplicationAdapter() {
     }
 
     private fun spawnDroplet() {
+
+        if (TimeUtils.nanoTime() - lastDropletTime <= INTERVAL_BETWEEN_DROPLETS) {
+
+            return
+        }
 
         val rectangleDroplet = Rectangle()
         rectangleDroplet.x = MathUtils.random(0f, SCREEN_WIDTH - RECTANGLE_DROPLET_WIDTH)
