@@ -26,27 +26,27 @@ const val INTERVAL_BETWEEN_DROPLETS = 1000000000
 
 class MyGdxGame : ApplicationAdapter() {
 
-    lateinit var textureDrop: Texture
+    lateinit var textureDroplet: Texture
     lateinit var textureBucket: Texture
-    lateinit var soundDrop: Sound
+    lateinit var soundDroplet: Sound
     lateinit var musicBackground: Music
 
     lateinit var rectangleBucket: Rectangle
-    lateinit var raindrops: com.badlogic.gdx.utils.Array<Rectangle>
+    lateinit var rectanglesDroplets: com.badlogic.gdx.utils.Array<Rectangle>
 
     lateinit var camera: OrthographicCamera
 
     lateinit var spriteBatch: SpriteBatch
 
-    var lastDropTime: Long = 0
+    var lastDropletTime: Long = 0
 
     var convertedTouchPosition: Vector3 = Vector3()
 
     override fun create() {
 
-        textureDrop = Texture(Gdx.files.internal("droplet.png"))
+        textureDroplet = Texture(Gdx.files.internal("droplet.png"))
         textureBucket = Texture(Gdx.files.internal("bucket.png"))
-        soundDrop = Gdx.audio.newSound(Gdx.files.internal("drop.wav"))
+        soundDroplet = Gdx.audio.newSound(Gdx.files.internal("drop.wav"))
         musicBackground = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"))
 
         musicBackground.isLooping = true
@@ -63,8 +63,8 @@ class MyGdxGame : ApplicationAdapter() {
 
         spriteBatch = SpriteBatch()
 
-        raindrops = com.badlogic.gdx.utils.Array()
-        spawnRaindrop()
+        rectanglesDroplets = com.badlogic.gdx.utils.Array()
+        spawnDroplet()
     }
 
     override fun render() {
@@ -75,14 +75,14 @@ class MyGdxGame : ApplicationAdapter() {
         spriteBatch.projectionMatrix = camera.combined
         spriteBatch.begin()
         spriteBatch.draw(textureBucket, rectangleBucket.x, rectangleBucket.y)
-        raindrops.forEach { spriteBatch.draw(textureDrop, it.x, it.y) }
+        rectanglesDroplets.forEach { spriteBatch.draw(textureDroplet, it.x, it.y) }
         spriteBatch.end()
 
         camera.update()
 
-        if (TimeUtils.nanoTime() - lastDropTime > INTERVAL_BETWEEN_DROPLETS) {
+        if (TimeUtils.nanoTime() - lastDropletTime > INTERVAL_BETWEEN_DROPLETS) {
 
-            spawnRaindrop()
+            spawnDroplet()
         }
 
         handleDroplets()
@@ -92,21 +92,21 @@ class MyGdxGame : ApplicationAdapter() {
     }
 
     private fun handleDroplets() {
-        val iterator = raindrops.iterator()
+        val iterator = rectanglesDroplets.iterator()
 
         while (iterator.hasNext()) {
 
-            val raindrop = iterator.next()
-            raindrop.y -= 200f * Gdx.graphics.deltaTime
+            val droplet = iterator.next()
+            droplet.y -= 200f * Gdx.graphics.deltaTime
 
-            if (raindrop.y + RECTANGLE_DROPLET_HEIGHT < 0) {
+            if (droplet.y + RECTANGLE_DROPLET_HEIGHT < 0) {
 
                 iterator.remove()
             }
 
-            if (raindrop.overlaps(rectangleBucket)) {
+            if (droplet.overlaps(rectangleBucket)) {
 
-                soundDrop.play()
+                soundDroplet.play()
                 iterator.remove()
             }
         }
@@ -149,23 +149,23 @@ class MyGdxGame : ApplicationAdapter() {
 
     override fun dispose() {
 
-        textureDrop.dispose()
+        textureDroplet.dispose()
         textureBucket.dispose()
-        soundDrop.dispose()
+        soundDroplet.dispose()
         musicBackground.dispose()
         spriteBatch.dispose()
     }
 
-    private fun spawnRaindrop() {
+    private fun spawnDroplet() {
 
-        val rectangleRainDrop = Rectangle()
-        rectangleRainDrop.x = MathUtils.random(0f, SCREEN_WIDTH - RECTANGLE_DROPLET_WIDTH)
-        rectangleRainDrop.y = SCREEN_HEIGHT
-        rectangleRainDrop.width = RECTANGLE_DROPLET_WIDTH
-        rectangleRainDrop.height = RECTANGLE_DROPLET_HEIGHT
+        val rectangleDroplet = Rectangle()
+        rectangleDroplet.x = MathUtils.random(0f, SCREEN_WIDTH - RECTANGLE_DROPLET_WIDTH)
+        rectangleDroplet.y = SCREEN_HEIGHT
+        rectangleDroplet.width = RECTANGLE_DROPLET_WIDTH
+        rectangleDroplet.height = RECTANGLE_DROPLET_HEIGHT
 
-        raindrops.add(rectangleRainDrop)
+        rectanglesDroplets.add(rectangleDroplet)
 
-        lastDropTime = TimeUtils.nanoTime()
+        lastDropletTime = TimeUtils.nanoTime()
     }
 }
