@@ -31,10 +31,10 @@ class MyGdxGame : ApplicationAdapter() {
     lateinit var soundDroplet: Sound
     lateinit var musicBackground: Music
 
-    lateinit var rectangleBucket: Rectangle
-    lateinit var rectanglesDroplets: com.badlogic.gdx.utils.Array<Rectangle>
+    var rectangleBucket = Rectangle()
+    var rectanglesDroplets = com.badlogic.gdx.utils.Array<Rectangle>()
 
-    lateinit var camera: OrthographicCamera
+    var camera = OrthographicCamera()
 
     lateinit var spriteBatch: SpriteBatch
 
@@ -52,18 +52,15 @@ class MyGdxGame : ApplicationAdapter() {
         musicBackground.isLooping = true
 //        musicBackground.play()
 
-        rectangleBucket = Rectangle()
         rectangleBucket.width = RECTANGLE_BUCKET_WIDTH
         rectangleBucket.height = RECTANGLE_BUCKET_HEIGHT
         rectangleBucket.x = SCREEN_WIDTH / 2f - RECTANGLE_BUCKET_WIDTH / 2f
         rectangleBucket.y = 20f
 
-        camera = OrthographicCamera()
         camera.setToOrtho(false, SCREEN_WIDTH, SCREEN_HEIGHT)
 
         spriteBatch = SpriteBatch()
 
-        rectanglesDroplets = com.badlogic.gdx.utils.Array()
         spawnDroplet()
     }
 
