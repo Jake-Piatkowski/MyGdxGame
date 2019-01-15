@@ -26,21 +26,21 @@ const val INTERVAL_BETWEEN_DROPLETS = 1000000000
 
 class MyGdxGame : ApplicationAdapter() {
 
-    lateinit var textureDroplet: Texture
-    lateinit var textureBucket: Texture
-    lateinit var soundDroplet: Sound
-    lateinit var musicBackground: Music
+    private lateinit var textureDroplet: Texture
+    private lateinit var textureBucket: Texture
+    private lateinit var soundDroplet: Sound
+    private lateinit var musicBackground: Music
 
-    var rectangleBucket = Rectangle()
-    var rectanglesDroplets = com.badlogic.gdx.utils.Array<Rectangle>()
+    private val rectangleBucket = Rectangle()
+    private val rectanglesDroplets = com.badlogic.gdx.utils.Array<Rectangle>()
 
-    var camera = OrthographicCamera()
+    private val camera = OrthographicCamera()
 
-    lateinit var spriteBatch: SpriteBatch
+    private lateinit var spriteBatch: SpriteBatch
 
-    var lastDropletTime: Long = 0
+    private var lastDropletTime: Long = 0
 
-    var convertedTouchPosition: Vector3 = Vector3()
+    private val convertedTouchPosition: Vector3 = Vector3()
 
     override fun create() {
 
