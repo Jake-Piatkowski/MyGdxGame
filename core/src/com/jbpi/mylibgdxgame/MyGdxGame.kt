@@ -89,6 +89,7 @@ class MyGdxGame : ApplicationAdapter() {
     }
 
     private fun handleDroplets() {
+
         val iterator = rectanglesDroplets.iterator()
 
         while (iterator.hasNext()) {
@@ -133,6 +134,7 @@ class MyGdxGame : ApplicationAdapter() {
     }
 
     private fun restrainBucketMove() {
+
         if (rectangleBucket.x < 0f) {
 
             rectangleBucket.x = 0f
