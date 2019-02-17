@@ -2,7 +2,7 @@ package com.jbpi.mylibgdxgame.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.jbpi.mylibgdxgame.MyGdxGame;
+import com.jbpi.mylibgdxgame.DropGame;
 
 public class DesktopLauncher {
 
@@ -13,6 +13,6 @@ public class DesktopLauncher {
         config.width = 800;
         config.height = 480;
 
-        new LwjglApplication(new MyGdxGame(), config);
+        new LwjglApplication(new DropGame(), config);
     }
 }
