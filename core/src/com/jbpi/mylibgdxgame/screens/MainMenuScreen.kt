@@ -7,9 +7,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.math.Matrix4
 import com.jbpi.mylibgdxgame.DropGame
 
-class MainMenuScreen constructor(game: DropGame): Screen  {
+class MainMenuScreen constructor(private val game: DropGame): Screen  {
 
-    private val dropGame = game
     private val orthographicCamera: OrthographicCamera = OrthographicCamera()
 
     init {
@@ -24,14 +23,14 @@ class MainMenuScreen constructor(game: DropGame): Screen  {
 
         orthographicCamera.update()
 
-        dropGame.spriteBatch.projectionMatrix = Matrix4(orthographicCamera.combined)
-        dropGame.spriteBatch.begin()
-        dropGame.bitmapFont.draw(dropGame.spriteBatch, "Welcome to Drop!!!", 100f, 150f)
-        dropGame.bitmapFont.draw(dropGame.spriteBatch, "Tap anywhere to begin!", 100f, 100f)
-        dropGame.spriteBatch.end()
+        game.spriteBatch.projectionMatrix = Matrix4(orthographicCamera.combined)
+        game.spriteBatch.begin()
+        game.bitmapFont.draw(game.spriteBatch, "Welcome to Drop!!!", 100f, 150f)
+        game.bitmapFont.draw(game.spriteBatch, "Tap anywhere to begin!", 100f, 100f)
+        game.spriteBatch.end()
 
         if (Gdx.input.isTouched) {
-            dropGame.screen = GameScreen(dropGame)
+            game.screen = GameScreen(game)
             dispose()
         }
     }
