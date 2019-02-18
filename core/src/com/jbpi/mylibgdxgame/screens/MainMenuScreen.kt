@@ -30,7 +30,7 @@ class MainMenuScreen constructor(private val game: DropGame): Screen  {
         game.spriteBatch.end()
 
         if (Gdx.input.isTouched) {
-            game.screen = GameScreen(game)
+            game.changeScreenToGame()
             dispose()
         }
     }
