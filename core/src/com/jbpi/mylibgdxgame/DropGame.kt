@@ -11,7 +11,7 @@ class DropGame : Game() {
     lateinit var spriteBatch: SpriteBatch
     lateinit var bitmapFont: BitmapFont
 
-    private lateinit var gameScreen: GameScreen
+    private val gameScreen: GameScreen by lazy { GameScreen(this) }
 
     override fun create() {
         spriteBatch = SpriteBatch()
@@ -30,7 +30,6 @@ class DropGame : Game() {
     }
 
     fun changeScreenToGame() {
-        gameScreen = GameScreen(this)
         screen = gameScreen
     }
 }
