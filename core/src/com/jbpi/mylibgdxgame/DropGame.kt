@@ -24,6 +24,8 @@ class DropGame : Game() {
         spriteBatch.dispose()
         bitmapFont.dispose()
 
+        gameScreen.dispose()
+
         super.dispose()
     }
 
