@@ -8,14 +8,12 @@ import com.jbpi.mylibgdxgame.screens.MainMenuScreen
 
 class DropGame : Game() {
 
-    lateinit var spriteBatch: SpriteBatch
-    lateinit var bitmapFont: BitmapFont
+    val spriteBatch: SpriteBatch by lazy { SpriteBatch() }
+    val bitmapFont: BitmapFont by lazy { BitmapFont() }
 
     private val gameScreen: GameScreen by lazy { GameScreen(this) }
 
     override fun create() {
-        spriteBatch = SpriteBatch()
-        bitmapFont = BitmapFont()
 
         setScreen(MainMenuScreen(this))
     }
