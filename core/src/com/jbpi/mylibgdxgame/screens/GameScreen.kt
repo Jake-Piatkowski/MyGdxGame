@@ -26,10 +26,10 @@ const val INTERVAL_BETWEEN_DROPLETS = 1000000000
 
 class GameScreen (private val game: DropGame) : Screen {
 
-    private var textureDroplet: Texture = Texture(Gdx.files.internal("droplet.png"))
-    private var textureBucket: Texture = Texture(Gdx.files.internal("bucket.png"))
-    private var soundDroplet: Sound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"))
-    private var musicBackground: Music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"))
+    private val textureDroplet: Texture = Texture(Gdx.files.internal("droplet.png"))
+    private val textureBucket: Texture = Texture(Gdx.files.internal("bucket.png"))
+    private val soundDroplet: Sound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"))
+    private val musicBackground: Music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"))
 
     private val rectangleBucket = Rectangle()
     private val rectanglesDroplets = com.badlogic.gdx.utils.Array<Rectangle>()
