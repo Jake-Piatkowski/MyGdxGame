@@ -23,7 +23,7 @@ class MainMenuScreen constructor(private val game: DropGame): Screen  {
 
         orthographicCamera.update()
 
-        game.spriteBatch.projectionMatrix = Matrix4(orthographicCamera.combined)
+        game.spriteBatch.projectionMatrix = orthographicCamera.combined
         game.spriteBatch.begin()
         game.bitmapFont.draw(game.spriteBatch, "Welcome to Drop!!!", 100f, 150f)
         game.bitmapFont.draw(game.spriteBatch, "Tap anywhere to begin!", 100f, 100f)
